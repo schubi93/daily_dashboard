@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <title>Infoscreen</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      background: #121212;
+      font-family: sans-serif;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      width: 100vw;
+      height: 100vh;
+      gap: 1rem;
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+    .cell {
+      border-radius: 16px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .cell:hover {
+      transform: scale(1.03);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+    }
+
+    /* Top-left and bottom-left: clip with inset */
+    .clip-img {
+      width: calc(100% + 80px); /* account for 40px on left and right */
+      height: calc(100% + 80px); /* account for 40px on top and bottom */
+      object-fit: cover;
+      object-position: center;
+      margin: -40px;
+    }
+
+    /* Top-right: no background, just the clock */
+    .clock-cell {
+      background: transparent;
+      box-shadow: none;
+    }
+    .aspect-ratio-box {
+      width: 90%;
+      aspect-ratio: 133 / 42;
+      display: flex;
+    }
+    .aspect-ratio-box iframe {
+      width: 150%;
+      height: 100%;
+      border: none;
+      border-radius: 12px;
+    }
+
+    /* Bottom-right: move image up to clip top */
+    .bottom-right-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center bottom; /* align to top, so bottom gets clipped if needed */
+    }
+  </style>
+</head>
+<body>
+  <div class="grid">
+    <div class="cell">
+      <img class="clip-img" src="https://coburgerhuette.at/coburger/coburger.jpg" alt="Coburger Hütte">
+    </div>
+    <div class="cell clock-cell">
+      <div class="aspect-ratio-box">
+        <iframe src="https://free.timeanddate.com/clock/i9yoyfit/n970/tlde3/fn2/fs48/fcfff/tc121212/pc121212/ftb/tt0/tw1/tb4" title="Uhrzeit"></iframe>
+      </div>
+    </div>
+    <div class="cell">
+      <img class="clip-img" src="https://www.augsburg.de/fileadmin/user_upload/header/webcam/webcamdachspitz/B_Rathausplatz_Dachspitz_00.jpg" alt="Augsburg Webcam">
+    </div>
+    <div class="cell">
+      <img class="bottom-right-img" src="https://www.dwd.de/DWD/wetter/radar/radfilm_bay_akt.gif" alt="Radar Bayern">
+    </div>
+  </div>
+</body>
+</html>
